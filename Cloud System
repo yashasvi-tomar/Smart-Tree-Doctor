@@ -1,0 +1,71 @@
+Resource: 
+
+http://id4cmobile.myqnapcloud.com:8080/qiot/#/ 
+
+QNAP QIoT Suite Lite for everyone (EN) 
+
+QNAP QBoat – Your Private IoT server (EN) 
+
+https://www.qnap.com/solution/iot/en/ 
+
+ 
+
+Why use QIot? 
+
+https://view.publitas.com/qnap-1/qiot-suite-lite_en_51000-024317-rs_web/page/2 
+
+came up: 
+
+https://aws.amazon.com/blogs/big-data/build-a-visualization-and-monitoring-dashboard-for-iot-data-with-amazon-kinesis-analytics-and-amazon-quicksight/ 
+
+-might be a bit to much for just one device + a few of the APIs used are not free  
+
+ 
+
+New Solution: 
+
+ 
+
+-New free version will look like the folowing: 
+
+ 
+
+Iot device publishes MQTT --> AWS Iot subscribes --> rule engine --> save in DataBase (DynamoDB) & Display Dashboard in cloudwatch & if disease true send email notification via SNS 
+
+ Step 1. create a Thing: 
+
+-IoT (Internet Of Things) Getting Started - Part 1 
+
+-Connecting Devices to AWS IoT Core - AWS IoT Tutorial 2019 
+
+-Connecting ESP8266 to AWS IoT platform 
+
+
+Step 2. create DynamoDB(Database) 
+
+-https://www.youtube.com/watch?v=OzY2SwKOxbk&t=1s 
+
+-https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html 
+
+SUCCESSFULLY created table named IOTDATA to store MQTT files 
+
+
+Step 3. Dashboard: 
+
+Most feasible soloution: 
+
+https://stackoverflow.com/questions/55381802/how-can-i-easily-visualize-my-data-sent-over-mqtt-with-aws-iot-core 
+
+Displays a 1 when disease is detected and a 0 everytime an update comes in 
+
+
+Step 4. Ruleengine: 
+
+Connecting everything together and creating an email notification services using aws SNS 
+
+
+Publish timeout excpetion due to policy : setup for topics 
+
+https://stackoverflow.com/questions/54246362/unable-to-change-topic-name-on-raspberrypi-when-connected-through-aws-iot-core 
+
+ 
