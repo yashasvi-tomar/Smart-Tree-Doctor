@@ -1,0 +1,180 @@
+Reference for Building Application 
+
+https://github.com/awslabs/aws-sdk-android-samples/blob/master/AndroidPubSub/README.md 
+
+ 
+
+ Define IOT AWS Endpoint and Region 
+ 
+
+static final String LOG_TAG = PubSubActivity.class.getCanonicalName(); 
+
+ 
+
+    // --- Constants to modify per your configuration --- 
+
+ 
+
+    // IoT endpoint 
+
+    // AWS Iot CLI describe-endpoint call returns: XXXXXXXXXX.iot.<region>.amazonaws.com 
+
+    private static final String CUSTOMER_SPECIFIC_ENDPOINT = "a2zzgj6rkl9uqr-ats.iot.us-west-2.amazonaws.com"; 
+
+    // Name of the AWS IoT policy to attach to a newly created certificate 
+
+    private static final String AWS_IOT_POLICY_NAME = "Tree_Doc-Policy"; 
+
+ 
+
+    // Region of AWS IoT 
+
+    private static final Regions MY_REGION = Regions.US_WEST_2; 
+
+    // Filename of KeyStore file on the filesystem 
+
+    private static final String KEYSTORE_NAME = "iot_keystore"; 
+
+    // Password for the private key in the KeyStore 
+
+    private static final String KEYSTORE_PASSWORD = "password"; 
+
+    // Certificate and key aliases in the KeyStore 
+
+    private static final String CERTIFICATE_ID = "default"; 
+
+ 
+
+Subscribing to two Topic 
+
+ 
+
+ final String topic = "tree_doc/status"; 
+
+        final String topic2 = "tree_doc/time"; 
+
+ 
+
+        Log.d(LOG_TAG, "topic = " + topic); 
+
+        Log.d(LOG_TAG, "topic2 = " + topic2); 
+
+ 
+
+        try { 
+
+            mqttManager.subscribeToTopic(topic, AWSIotMqttQos.QOS0, 
+
+                    new AWSIotMqttNewMessageCallback() { 
+
+                        @Override 
+
+                        public void onMessageArrived(final String topic, final byte[] data) { 
+
+                            runOnUiThread(new Runnable() { 
+
+                                @Override 
+
+                                public void run() { 
+
+                                    try { 
+
+                                        String message = new String(data, "UTF-8"); 
+
+                                        Log.d(LOG_TAG, "Message arrived:"); 
+
+                                        Log.d(LOG_TAG, "   Topic: " + topic); 
+
+                                        Log.d(LOG_TAG, " Message: " + message); 
+
+ 
+
+                                        if (message.equals("False")){ 
+
+                                            tvLastMessage.setText("\n\n\n\nPlant is Healthy"); 
+
+                                        } 
+
+                                        else if(message.equals("True")){ 
+
+                                            tvLastMessage.setText("\n\n\n\nA Sick Plant is Found"); 
+
+                                        } 
+
+                                        else{ 
+
+                                            tvLastMessage.setText("\n\n\n\nPlant is Healthy"); 
+
+                                        } 
+
+                                    } catch (UnsupportedEncodingException e) { 
+
+                                        Log.e(LOG_TAG, "Message encoding error.", e); 
+
+                                    } 
+
+                                } 
+
+                            }); 
+
+                        } 
+
+                    }); 
+
+        } catch (Exception e) { 
+
+            Log.e(LOG_TAG, "Subscription error.", e); 
+
+        } 
+
+ 
+
+        try { 
+
+            mqttManager.subscribeToTopic(topic2, AWSIotMqttQos.QOS0, 
+
+                    new AWSIotMqttNewMessageCallback() { 
+
+                        @Override 
+
+                        public void onMessageArrived(final String topic, final byte[] data) { 
+
+                            runOnUiThread(new Runnable() { 
+
+                                @Override 
+
+                                public void run() { 
+
+                                    try { 
+
+                                        String message = new String(data, "UTF-8"); 
+
+                                        Log.d(LOG_TAG, "Message arrived:"); 
+
+                                        Log.d(LOG_TAG, "   Topic: " + topic2); 
+
+                                        Log.d(LOG_TAG, " Message: " + message); 
+
+ 
+
+                                        tvLastMessageTime.setText("\n\n\n\nThe last message is sent at\n\n" + message); 
+
+                                    } catch (UnsupportedEncodingException e) { 
+
+                                        Log.e(LOG_TAG, "Message encoding error.", e); 
+
+                                    } 
+
+                                } 
+
+                            }); 
+
+                        } 
+
+                    }); 
+
+        } catch (Exception e) { 
+
+            Log.e(LOG_TAG, "Subscription error.", e); 
+
+        } 
