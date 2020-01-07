@@ -1,0 +1,90 @@
+# Communication architecture  
+
+Jetson nano -> MQtt -> WiFi -> MQtt -> Qnap(Cloud) 
+
+#  Develop step
+
+Install mosquitto  [done] 
+Try to communicate with PC via mqtt [done] 
+Try to send json format data to QIoT 
+Coding as a function 
+
+# Qnap resourceinfo.json
+
+{ 
+
+    "username": "984c948cd9a1413280", 
+
+    "myqnapcloudHost": "Not Available", 
+
+    "clientId": "jetsonnano_1574503484", 
+
+    "host": [ 
+
+        "140.118.25.64" 
+
+    ], 
+
+    "password": "r:d405243a2dadd174ea", 
+
+    "port": 21883, 
+
+    "resources": [ 
+
+        { 
+
+            "description": "", 
+
+            "datatype": "Boolean", 
+
+            "resourceid": "result", 
+
+            "topic": "qiot/things/fritz/jetsonnano/result", 
+
+            "resourcename": "result", 
+
+            "resourcetypename": "Custom Sensor(Boolean)", 
+
+            "unit": "" 
+
+        }, 
+
+        { 
+
+            "description": "", 
+
+            "datatype": "String", 
+
+            "resourceid": "time", 
+
+            "topic": "qiot/things/fritz/jetsonnano/time", 
+
+            "resourcename": "time", 
+
+            "resourcetypename": "Custom Sensor(String)", 
+
+            "unit": "°" 
+
+        }, 
+
+        { 
+
+            "description": "", 
+
+            "datatype": "String", 
+
+            "resourceid": "device", 
+
+            "topic": "qiot/things/fritz/jetsonnano/device", 
+
+            "resourcename": "device ID", 
+
+            "resourcetypename": "Custom Sensor(String)", 
+
+            "unit": "°" 
+
+        } 
+
+    ] 
+
+} 
