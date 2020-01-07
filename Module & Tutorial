@@ -1,0 +1,77 @@
+Aws-to-device-sdk-python 
+
+https://github.com/aws/aws-iot-device-sdk-python 
+
+
+
+[ mqtt message payload ] 
+
+ 
+
+Method 1: one topic with one message 
+
+message = {} 
+
+message['message'] = "123" 
+
+message['sequence'] = 1 
+
+messageJson = json.dumps(message) 
+
+topic = "tree_doc/deviceid" 
+
+myAWSIoTMQTTClient.publish(topic, messageJson, 1) 
+
+ 
+
+time.sleep(1) 
+
+ 
+
+message = {} 
+
+message['message'] = "True" 
+
+message['sequence'] = 2 
+
+messageJson = json.dumps(message) 
+
+topic = "tree_doc/result" 
+
+myAWSIoTMQTTClient.publish(topic, messageJson, 1) 
+
+ 
+
+time.sleep(1) 
+
+ 
+
+message = {} 
+
+message['message'] = "1200" 
+
+message['sequence'] = 3 
+
+messageJson = json.dumps(message) 
+
+topic = "tree_doc/time" 
+
+myAWSIoTMQTTClient.publish(topic, messageJson, 1) 
+
+ 
+
+Method 2: one topic with all messages 
+
+message = {} 
+
+message['result'] = "True" 
+
+message['time'] = "1300" 
+
+message['deviceid'] = "123" 
+
+messageJson = json.dumps(message) 
+
+topic = "tree_doc/result" 
+
+myAWSIoTMQTTClient.publish(topic, messageJson, 1) 
